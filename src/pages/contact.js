@@ -7,8 +7,9 @@ const encode = data => {
     .join("&");
 };
 
+const defaultState = { name: "", email: "", message: "" };
 export default class NotFoundPage extends Component {
-  state = { name: "", email: "", message: "" };
+  state = defaultState;
   handleSubmit = e => {
     fetch("/", {
       method: "POST",
@@ -16,6 +17,7 @@ export default class NotFoundPage extends Component {
       body: encode({ "form-name": "contact", ...this.state })
     })
       .then(() => alert("Success!"))
+      .then(() => this.setState(defaultState))
       .catch(error => alert(error));
 
     e.preventDefault();
